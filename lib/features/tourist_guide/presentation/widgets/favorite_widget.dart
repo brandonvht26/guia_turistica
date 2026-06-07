@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 
 class FavoriteWidget extends StatefulWidget {
   final bool isFavorite;
   final VoidCallback onPressed;
   final double size;
+  final bool showCount;
 
   const FavoriteWidget({
     super.key,
     required this.isFavorite,
     required this.onPressed,
     this.size = 24.0,
+    this.showCount = false,
   });
 
   @override
@@ -50,7 +53,7 @@ class _FavoriteWidgetState extends State<FavoriteWidget>
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    final iconWidget = GestureDetector(
       onTapDown: _onTapDown,
       onTapUp: _onTapUp,
       onTapCancel: _onTapCancel,
@@ -71,7 +74,7 @@ class _FavoriteWidgetState extends State<FavoriteWidget>
               );
             },
             child: Icon(
-              widget.isFavorite ? Icons.favorite : Icons.favorite_border,
+              LucideIcons.heart,
               key: ValueKey<bool>(widget.isFavorite),
               color: widget.isFavorite ? Colors.red : Colors.grey.shade400,
               size: widget.size,
@@ -79,6 +82,29 @@ class _FavoriteWidgetState extends State<FavoriteWidget>
           ),
         ),
       ),
+    );
+
+    if (!widget.showCount) {
+      return iconWidget;
+    }
+
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        iconWidget,
+        SizedBox(
+          width: 18,
+          child: Text(
+            widget.isFavorite ? '42' : '41',
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              fontFamily: 'GoogleSans',
+              fontWeight: FontWeight.w700,
+              fontSize: 13,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

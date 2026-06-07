@@ -11,13 +11,16 @@ class TextSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
       child: Text(
         description,
-        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-              color: Colors.grey.shade700,
-              height: 1.6,
-            ),
+        style: TextStyle(
+          fontFamily: 'GoogleSans',
+          fontWeight: FontWeight.w400,
+          fontSize: 15,
+          color: Colors.grey.shade700,
+          height: 1.65,
+        ),
         textAlign: TextAlign.justify,
       ),
     );

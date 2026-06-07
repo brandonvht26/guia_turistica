@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 
 class ButtonSection extends StatelessWidget {
   final String phoneNumber;
@@ -41,72 +42,100 @@ class ButtonSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const Color enabledColor = Color(0xFFFF6D00);
+    const Color accentColor = Color(0xFFFF6D00);
 
     return SizedBox(
       height: 100,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          _buildButtonColumn(
-            context,
-            enabledColor,
-            Icons.call,
-            'LLAMAR',
-            () => _launchCall(context),
+          _ActionButton(
+            icon: LucideIcons.phone,
+            label: 'LLAMAR',
+            accentColor: accentColor,
+            onPressed: () => _launchCall(context),
           ),
-          _buildButtonColumn(
-            context,
-            enabledColor,
-            Icons.near_me,
-            'RUTA',
-            () => _launchRoute(context),
+          _ActionButton(
+            icon: LucideIcons.navigation,
+            label: 'RUTA',
+            accentColor: accentColor,
+            onPressed: () => _launchRoute(context),
           ),
-          _buildButtonColumn(
-            context,
-            enabledColor,
-            Icons.share,
-            'COMPARTIR',
-            () => _launchShare(context),
+          _ActionButton(
+            icon: LucideIcons.share2,
+            label: 'COMPARTIR',
+            accentColor: accentColor,
+            onPressed: () => _launchShare(context),
           ),
         ],
       ),
     );
   }
+}
 
-  Column _buildButtonColumn(
-    BuildContext context,
-    Color color,
-    IconData icon,
-    String label,
-    VoidCallback onPressed,
-  ) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Container(
-          margin: const EdgeInsets.only(bottom: 8),
-          decoration: BoxDecoration(
-            color: color.withValues(alpha: 0.1),
-            shape: BoxShape.circle,
-          ),
-          child: IconButton(
-            icon: Icon(icon),
-            color: color,
-            onPressed: onPressed,
-          ),
+class _ActionButton extends StatefulWidget {
+  final IconData icon;
+  final String label;
+  final Color accentColor;
+  final VoidCallback onPressed;
+
+  const _ActionButton({
+    required this.icon,
+    required this.label,
+    required this.accentColor,
+    required this.onPressed,
+  });
+
+  @override
+  State<_ActionButton> createState() => _ActionButtonState();
+}
+
+class _ActionButtonState extends State<_ActionButton> {
+  bool _isPressed = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTapDown: (_) => setState(() => _isPressed = true),
+      onTapUp: (_) {
+        setState(() => _isPressed = false);
+        widget.onPressed();
+      },
+      onTapCancel: () => setState(() => _isPressed = false),
+      child: AnimatedScale(
+        scale: _isPressed ? 0.88 : 1.0,
+        duration: const Duration(milliseconds: 120),
+        curve: Curves.easeOutCubic,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              margin: const EdgeInsets.only(bottom: 8),
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: widget.accentColor.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Icon(
+                widget.icon,
+                color: widget.accentColor,
+                size: 22,
+              ),
+            ),
+            Text(
+              widget.label,
+              style: TextStyle(
+                fontFamily: 'GoogleSans',
+                fontSize: 11,
+                fontWeight: FontWeight.w700,
+                color: Colors.grey.shade600,
+                letterSpacing: 0.5,
+              ),
+            ),
+          ],
         ),
-        Text(
-          label,
-          style: TextStyle(
-            fontSize: 12,
-            fontWeight: FontWeight.w600,
-            color: Colors.grey.shade700,
-            letterSpacing: 0.5,
-          ),
-        ),
-      ],
+      ),
     );
   }
 }

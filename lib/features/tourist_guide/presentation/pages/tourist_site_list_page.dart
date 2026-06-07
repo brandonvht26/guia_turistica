@@ -479,16 +479,27 @@ class _ParallaxImage extends StatelessWidget {
           ),
         );
       },
-      child: Image.network(
-        imageUrl,
-        fit: BoxFit.cover,
-        width: double.infinity,
-        height: double.infinity,
-        errorBuilder: (context, error, stackTrace) => Container(
-          color: Colors.grey.shade300,
-          child: const Center(child: Icon(Icons.image_not_supported)),
-        ),
-      ),
+      child: imageUrl.startsWith('http')
+          ? Image.network(
+              imageUrl,
+              fit: BoxFit.cover,
+              width: double.infinity,
+              height: double.infinity,
+              errorBuilder: (context, error, stackTrace) => Container(
+                color: Colors.grey.shade300,
+                child: const Center(child: Icon(Icons.image_not_supported)),
+              ),
+            )
+          : Image.asset(
+              imageUrl,
+              fit: BoxFit.cover,
+              width: double.infinity,
+              height: double.infinity,
+              errorBuilder: (context, error, stackTrace) => Container(
+                color: Colors.grey.shade300,
+                child: const Center(child: Icon(Icons.image_not_supported)),
+              ),
+            ),
     );
   }
 }

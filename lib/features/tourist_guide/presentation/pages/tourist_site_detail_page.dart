@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 import '../../domain/entities/tourist_site.dart';
 import '../providers/tourist_sites_provider.dart';
 import '../widgets/button_section.dart';
@@ -66,64 +67,82 @@ class _TouristSiteDetailPageState
     );
   }
 
+  Widget _buildCard({required Widget child}) {
+    return Container(
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.04),
+            blurRadius: 20,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      clipBehavior: Clip.antiAlias,
+      child: child,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    final site = widget.site;
+    final sitesAsync = ref.watch(touristSitesProvider);
+    final site = sitesAsync.asData?.value.firstWhere(
+          (s) => s.id == widget.site.id,
+          orElse: () => widget.site,
+        ) ??
+        widget.site;
 
     return Scaffold(
+      backgroundColor: Colors.grey.shade50,
       body: CustomScrollView(
         slivers: [
           _buildSliverAppBar(context),
           SliverToBoxAdapter(
-            child: Column(
-              children: [
-                _cascade(
-                  order: 1,
-                  child: TitleSection(
-                    title: site.name,
-                    subtitle: site.location,
-                    isFavorite: site.isFavorite,
-                    onFavoritePressed: () {
-                      ref
-                          .read(touristSitesProvider.notifier)
-                          .toggleFavorite(site.id);
-                    },
-                  ),
-                ),
-                _cascade(
-                  order: 2,
-                  child: Column(
-                    children: [
-                      Divider(
-                        height: 1,
-                        color: Colors.grey.shade200,
-                        thickness: 1,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(16, 16, 16, 32),
+              child: Column(
+                children: [
+                  _cascade(
+                    order: 1,
+                    child: _buildCard(
+                      child: TitleSection(
+                        title: site.name,
+                        subtitle: site.location,
+                        isFavorite: site.isFavorite,
+                        onFavoritePressed: () {
+                          ref
+                              .read(touristSitesProvider.notifier)
+                              .toggleFavorite(site.id);
+                        },
                       ),
-                      ButtonSection(
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  _cascade(
+                    order: 2,
+                    child: _buildCard(
+                      child: ButtonSection(
                         phoneNumber: '+593 9 7778877663',
                         locationName: site.name,
                         shareMessage:
                             'Mira esto: ${site.name} - ${site.location}',
                       ),
-                    ],
+                    ),
                   ),
-                ),
-                _cascade(
-                  order: 3,
-                  child: Column(
-                    children: [
-                      Divider(
-                        height: 1,
-                        color: Colors.grey.shade200,
-                        thickness: 1,
-                      ),
-                      TextSection(
+                  const SizedBox(height: 12),
+                  _cascade(
+                    order: 3,
+                    child: _buildCard(
+                      child: TextSection(
                         description: site.description,
                       ),
-                    ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ],
@@ -141,11 +160,12 @@ class _TouristSiteDetailPageState
         padding: const EdgeInsets.all(8),
         child: Container(
           decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
-            shape: BoxShape.circle,
+            color:
+                Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
+            borderRadius: BorderRadius.circular(14),
           ),
           child: IconButton(
-            icon: const Icon(Icons.arrow_back),
+            icon: const Icon(LucideIcons.arrowLeft),
             color: Theme.of(context).colorScheme.primary,
             onPressed: () => Navigator.pop(context),
           ),
@@ -157,18 +177,31 @@ class _TouristSiteDetailPageState
           child: Stack(
             fit: StackFit.expand,
             children: [
-              Image.network(
-                widget.site.imageUrl,
-                fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) {
-                  return Container(
-                    color: Colors.grey.shade300,
-                    child: const Center(
-                      child: Icon(Icons.image_not_supported),
+              widget.site.imageUrl.startsWith('http')
+                  ? Image.network(
+                      widget.site.imageUrl,
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) {
+                        return Container(
+                          color: Colors.grey.shade300,
+                          child: const Center(
+                            child: Icon(Icons.image_not_supported),
+                          ),
+                        );
+                      },
+                    )
+                  : Image.asset(
+                      widget.site.imageUrl,
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) {
+                        return Container(
+                          color: Colors.grey.shade300,
+                          child: const Center(
+                            child: Icon(Icons.image_not_supported),
+                          ),
+                        );
+                      },
                     ),
-                  );
-                },
-              ),
               Container(
                 decoration: BoxDecoration(
                   gradient: LinearGradient(

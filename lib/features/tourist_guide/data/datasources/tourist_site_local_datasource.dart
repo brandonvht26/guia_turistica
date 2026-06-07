@@ -13,7 +13,7 @@ class TouristSiteLocalDataSource {
           'Monumento emblemático que marca la latitud 0°0\'0". Aquí puedes '
           'pararte con un pie en cada hemisferio. Cuenta con un museo '
           'etnográfico interactivo, planetario y pabellones culturales.',
-      imageUrl: 'https://picsum.photos/seed/mitad-del-mundo/800/400',
+      imageUrl: 'assets/images/mitad_del_mundo.webp',
       location: 'San Antonio de Pichincha, Quito',
     ),
     const TouristSiteModel(
@@ -23,7 +23,7 @@ class TouristSiteLocalDataSource {
           'Archipiélago volcánico declarado Patrimonio Natural de la Humanidad '
           'con especies únicas como las tortugas gigantes, iguanas marinas y '
           'piqueros de patas azules.',
-      imageUrl: 'https://picsum.photos/seed/galapagos/800/400',
+      imageUrl: 'assets/images/islas_galapagos.webp',
       location: 'Provincia de Galápagos',
     ),
     const TouristSiteModel(
@@ -33,7 +33,7 @@ class TouristSiteLocalDataSource {
           'Uno de los centros históricos mejor conservados de Latinoamérica. '
           'Sus calles empedradas albergan iglesias coloniales como La Compañía, '
           'San Francisco y la Plaza Grande.',
-      imageUrl: 'https://picsum.photos/seed/centro-historico-quito/800/400',
+      imageUrl: 'assets/images/centro_historico_de_quito.webp',
       location: 'Quito, Pichincha',
     ),
     const TouristSiteModel(
@@ -43,7 +43,7 @@ class TouristSiteLocalDataSource {
           'Hogar del volcán activo más alto del mundo (5897 msnm). Ofrece '
           'senderismo, ciclismo de montaña y avistamiento de cóndores andinos '
           'en un entorno de páramo impresionante.',
-      imageUrl: 'https://picsum.photos/seed/cotopaxi/800/400',
+      imageUrl: 'assets/images/parque_nacional_cotopaxi.webp',
       location: 'Provincia de Cotopaxi',
     ),
     const TouristSiteModel(
@@ -53,17 +53,17 @@ class TouristSiteLocalDataSource {
           'Ciudad de aventura y relax famosa por sus aguas termales, la Ruta '
           'de las Cascadas, puentismo desde el puente de San Francisco y '
           'la Casa del Árbol.',
-      imageUrl: 'https://picsum.photos/seed/banios/800/400',
+      imageUrl: 'assets/images/baños_de_agua_santa.webp',
       location: 'Provincia de Tungurahua',
     ),
     const TouristSiteModel(
       id: '6',
-      name: 'Cuenca Centro Histórico',
+      name: 'Centro Histórico de Cuenca',
       description:
-          'Ciudad colonial con arquitectura republicana y calles adoquinadas. '
-          'Su Catedral de la Inmaculada Concepción y el río Tomebamba ofrecen '
-          'estampas inolvidables.',
-      imageUrl: 'https://picsum.photos/seed/cuenca/800/400',
+          'Mágica ciudad colonial famosa por su arquitectura renacentista, calles '
+          'adoquinadas y sus cuatro ríos. Su majestuosa Catedral de la Inmaculada Concepción '
+          'y la ribera del río Tomebamba ofrecen estampas inolvidables.',
+      imageUrl: 'assets/images/centro_historico_de_cuenca.webp',
       location: 'Cuenca, Azuay',
     ),
     const TouristSiteModel(
@@ -73,7 +73,7 @@ class TouristSiteLocalDataSource {
           'El complejo arqueológico inca más importante del Ecuador. Destaca '
           'el Templo del Sol, una estructura elíptica construida con bloques '
           'de piedra perfectamente ensamblados.',
-      imageUrl: 'https://picsum.photos/seed/ingapirca/800/400',
+      imageUrl: 'assets/images/ingapirca.webp',
       location: 'Provincia de Cañar',
     ),
     const TouristSiteModel(
@@ -83,7 +83,7 @@ class TouristSiteLocalDataSource {
           'Cráter volcánico con una laguna de color turquesa intenso a 3914 '
           'msnm. Se puede descender hasta la orilla en kayak o recorrer el borde '
           'del cráter con vistas espectaculares.',
-      imageUrl: 'https://picsum.photos/seed/quilotoa/800/400',
+      imageUrl: 'assets/images/laguna_de_quilotoa.webp',
       location: 'Provincia de Cotopaxi',
     ),
     const TouristSiteModel(
@@ -93,7 +93,7 @@ class TouristSiteLocalDataSource {
           'Moderno malecón junto al río Guayas con jardines, museos, el Palacio '
           'de Cristal, el MAAC y el emblemático barrio de Las Peñas con sus 444 '
           'escalones.',
-      imageUrl: 'https://picsum.photos/seed/malecon-guayaquil/800/400',
+      imageUrl: 'assets/images/malecon_2000_de_guayaquil.webp',
       location: 'Guayaquil, Guayas',
     ),
     const TouristSiteModel(
@@ -103,7 +103,7 @@ class TouristSiteLocalDataSource {
           'Uno de los teleféricos más altos del mundo. Asciende hasta los 4100 '
           'msnm en el volcán Pichincha ofreciendo vistas panorámicas de toda la '
           'ciudad y los Andes.',
-      imageUrl: 'https://picsum.photos/seed/teleferico-quito/800/400',
+      imageUrl: 'assets/images/teleferico_de_quito.webp',
       location: 'Quito, Pichincha',
     ),
   ];

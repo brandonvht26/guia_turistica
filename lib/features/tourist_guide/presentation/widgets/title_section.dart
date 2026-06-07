@@ -20,6 +20,7 @@ class TitleSection extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(24),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
             child: Column(
@@ -27,19 +28,24 @@ class TitleSection extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
+                  style: TextStyle(
+                    fontFamily: 'GoogleSans',
+                    fontWeight: FontWeight.w700,
+                    fontSize: 22,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                 ),
                 const SizedBox(height: 8),
                 Text(
                   subtitle,
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: Colors.grey.shade600,
-                      ),
+                  style: TextStyle(
+                    fontFamily: 'GoogleSans',
+                    fontWeight: FontWeight.w400,
+                    fontSize: 14,
+                    color: Colors.grey.shade600,
+                  ),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -51,6 +57,7 @@ class TitleSection extends StatelessWidget {
             isFavorite: isFavorite,
             onPressed: onFavoritePressed,
             size: 32,
+            showCount: true,
           ),
         ],
       ),
