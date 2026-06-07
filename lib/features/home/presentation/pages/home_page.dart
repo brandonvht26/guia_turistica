@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import '../../../../core/utils/widgets/consecutive_text_field.dart';
 import '../../../../core/utils/widgets/animated_press_button.dart';
+import '../../../tourist_guide/presentation/pages/tourist_site_list_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -81,6 +82,29 @@ class _HomePageState extends State<HomePage> {
               AnimatedPressButton(
                 onPressed: () {},
                 child: const Text('Continuar'),
+              ),
+              const SizedBox(height: 40),
+              Divider(color: Colors.grey.shade300),
+              const SizedBox(height: 32),
+              Text(
+                'O explora la Guía Turística',
+                style: Theme.of(context).textTheme.titleMedium,
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 16),
+              ElevatedButton.icon(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const TouristSiteListPage(),
+                    ),
+                  );
+                },
+                icon: const Icon(LucideIcons.mapPin),
+                label: const Text('Ver Sitios Turísticos'),
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                ),
               ),
             ],
           ),
