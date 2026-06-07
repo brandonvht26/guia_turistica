@@ -8,14 +8,13 @@ class AppTheme {
   static ThemeData get lightTheme {
     return ThemeData(
       useMaterial3: true,
+      fontFamily: 'GoogleSans',
       colorScheme: ColorScheme.fromSeed(
         seedColor: seedColor,
         brightness: Brightness.light,
-        // Damos protagonismo al blanco como fondo principal
         surface: whiteColor,
         primary: seedColor,
       ),
-      // Tipografía y bordes redondeados típicos de Material 3 Expressive
       appBarTheme: const AppBarTheme(
         centerTitle: true,
         elevation: 0,
@@ -56,10 +55,10 @@ class AppTheme {
   static ThemeData get darkTheme {
     return ThemeData(
       useMaterial3: true,
+      fontFamily: 'GoogleSans',
       colorScheme: ColorScheme.fromSeed(
         seedColor: seedColor,
         brightness: Brightness.dark,
-        // Aunque es dark, el color semilla guiará los gradientes y acentos
         primary: seedColor,
       ),
       appBarTheme: const AppBarTheme(

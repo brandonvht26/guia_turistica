@@ -32,3 +32,11 @@ Todo formulario debe estar diseñado de forma que la apertura del teclado **NUNC
 
 ## 5. Íconos
 No se deben usar los emojis por defecto para representación visual primaria. Se exige usar paquetes de íconos profesionales. Actualmente se utiliza `lucide_icons`.
+
+## 6. Tipografía (Typography)
+El proyecto cuenta con fuentes personalizadas importadas en `assets/fonts/`. 
+Se estandariza el uso de la familia tipográfica **Google Sans**:
+- **Primary:** `Google Sans Regular` (Para cuerpo de texto, descripciones y componentes base).
+- **Primary-Bold:** `Google Sans Bold` (Para encabezados, títulos y resaltados).
+
+Estas fuentes deben ser configuradas globalmente en `pubspec.yaml` bajo la misma familia (ej. `GoogleSans`) definiendo sus pesos, para que el `ThemeData` en `lib/core/theme/app_theme.dart` pueda propagarlas automáticamente a toda la aplicación con `fontFamily: 'GoogleSans'`.

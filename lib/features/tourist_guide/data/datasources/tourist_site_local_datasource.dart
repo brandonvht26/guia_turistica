@@ -1,6 +1,10 @@
+import 'package:shared_preferences/shared_preferences.dart';
 import '../models/tourist_site_model.dart';
 
 class TouristSiteLocalDataSource {
+  static const _favoritesKey = 'favorite_site_ids';
+  final SharedPreferences _prefs;
+
   final List<TouristSiteModel> _sites = [
     const TouristSiteModel(
       id: '1',
@@ -104,6 +108,20 @@ class TouristSiteLocalDataSource {
     ),
   ];
 
+  TouristSiteLocalDataSource({required SharedPreferences prefs})
+      : _prefs = prefs {
+    _applyPersistedFavorites();
+  }
+
+  void _applyPersistedFavorites() {
+    final favoriteIds = _prefs.getStringList(_favoritesKey) ?? [];
+    for (var i = 0; i < _sites.length; i++) {
+      if (favoriteIds.contains(_sites[i].id) && !_sites[i].isFavorite) {
+        _sites[i] = _sites[i].copyWith(isFavorite: true);
+      }
+    }
+  }
+
   Future<List<TouristSiteModel>> getTouristSites() async {
     await Future.delayed(const Duration(milliseconds: 400));
     return _sites.map((site) => site.copyWith()).toList();
@@ -111,9 +129,19 @@ class TouristSiteLocalDataSource {
 
   Future<void> toggleFavorite(String siteId) async {
     final index = _sites.indexWhere((site) => site.id == siteId);
-    if (index != -1) {
-      final site = _sites[index];
-      _sites[index] = site.copyWithIsFavorite(!site.isFavorite);
+    if (index == -1) return;
+
+    final site = _sites[index];
+    final newIsFavorite = !site.isFavorite;
+    _sites[index] = site.copyWithIsFavorite(newIsFavorite);
+
+    final favoriteIds =
+        List<String>.from(_prefs.getStringList(_favoritesKey) ?? []);
+    if (newIsFavorite) {
+      favoriteIds.add(siteId);
+    } else {
+      favoriteIds.remove(siteId);
     }
+    await _prefs.setStringList(_favoritesKey, favoriteIds);
   }
 }

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import '../../features/home/presentation/pages/home_page.dart';
+import '../../features/tourist_guide/presentation/pages/tourist_site_list_page.dart';
 
-// Utilidad para transiciones por defecto
 CustomTransitionPage<T> buildPageWithDefaultTransition<T>({
   required BuildContext context,
   required GoRouterState state,
@@ -13,7 +12,6 @@ CustomTransitionPage<T> buildPageWithDefaultTransition<T>({
     key: state.pageKey,
     child: child,
     transitionsBuilder: (context, animation, secondaryAnimation, child) {
-      // Transición sutil de Fade y Scale para el "efecto WOW"
       return FadeTransition(
         opacity: CurveTween(curve: Curves.easeInOut).animate(animation),
         child: ScaleTransition(
@@ -33,12 +31,12 @@ final appRouterProvider = Provider<GoRouter>((ref) {
     routes: [
       GoRoute(
         path: '/',
-        name: 'home',
-        builder: (context, state) => const HomePage(),
+        name: 'tourist_guide',
+        builder: (context, state) => const TouristSiteListPage(),
         pageBuilder: (context, state) => buildPageWithDefaultTransition(
           context: context,
           state: state,
-          child: const HomePage(),
+          child: const TouristSiteListPage(),
         ),
       ),
     ],
